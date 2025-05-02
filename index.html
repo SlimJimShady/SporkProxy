@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Proxy Search Engine</title>
+</head>
+<body>
+  <h1>Proxy Search</h1>
+  <input type="text" id="searchBox" placeholder="Search something..." />
+  <button onclick="search()">Search</button>
+  <ul id="results"></ul>
+
+  <script>
+    async function search() {
+      const query = document.getElementById('searchBox').value;
+      const res = await fetch(`/search?q=${encodeURIComponent(query)}`);
+      const data = await res.json();
+      const resultsEl = document.getElementById('results');
+      resultsEl.innerHTML = '';
+      data.results.forEach(result => {
+        const li = document.createElement('li');
+        li.innerHTML = `<a href="${result.link}" target="_blank">${result.title}</a>`;
+        resultsEl.appendChild(li);
+      });
+    }
+  </script>
+</body>
+</html>
