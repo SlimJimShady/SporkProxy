@@ -1,10 +1,9 @@
 const express = require('express');
-const axios = require('axios');
-const cheerio = require('cheerio');
-const app = express();
-const port = 3000;
+const path    = require('path');
+const app     = express();
 
-app.use(express.static('public'));
+// Serve all files in ./public at their own paths:
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/search', async (req, res) => {
   const query = req.query.q;
